@@ -63,11 +63,26 @@ for (int i = 1; i < histsize; i++)/*画直方图*/
 
 	threshold(image, result, 50, 220,CV_THRESH_BINARY);
 
-	namedWindow("二值化图像",WINDOW_NORMAL);
+	namedWindow("全局二值化图像",WINDOW_NORMAL);
 
-	imshow("二值化图像", result);
+	imshow("全局二值化图像", result);
+        
+        
 
-	waitKey(0);
+        result = image.clone();   /*创造一个和原图一样大小的矩阵*/
+
+	int blockSize = 45;  
+        
+        int constValue = 10;  
+         
+         adaptiveThreshold(image, result, 255, CV_ADAPTIVE_THRESH_MEAN_C, CV_THRESH_BINARY_INV, blockSize, constValue);  
+  
+         namedWindow("自适应二值化图像",WINDOW_NORMAL);
+
+	imshow("自适应二值化图像", result);
+
+	
+         waitKey(0);
 
 	return 0;
 
